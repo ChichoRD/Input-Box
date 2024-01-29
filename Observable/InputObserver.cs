@@ -19,14 +19,14 @@ namespace InputBox.Observable
         {
             _observableInput = _observableInputObject as IObservableInput;
 
-            _observableInput.InputAppeared += OnInputAppeared;
-            _observableInput.InputDisappeared += OnInputDisappeared;
+            _observableInput.InputRecieved += OnInputAppeared;
+            _observableInput.InputExpired += OnInputDisappeared;
         }
 
         private void OnDestroy()
         {
-            _observableInput.InputAppeared -= OnInputAppeared;
-            _observableInput.InputDisappeared -= OnInputDisappeared;
+            _observableInput.InputRecieved -= OnInputAppeared;
+            _observableInput.InputExpired -= OnInputDisappeared;
         }
 
         private void OnInputAppeared(object sender, System.EventArgs e) => InputAppeared?.Invoke();
