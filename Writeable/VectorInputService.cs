@@ -1,7 +1,7 @@
 ﻿using InputBox.Observable;
 using InputBox.Readable;
-using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace InputBox.Writeable
 {
@@ -17,36 +17,40 @@ namespace InputBox.Writeable
             set
             {
                 _input = value;
-                InputRecieved?.Invoke(this, EventArgs.Empty);
+                InputReceived?.Invoke();
             }
         }
 
-        public event EventHandler InputRecieved;
-        public event EventHandler InputExpired;
-        public float Get() => Input.x;
-        Vector2 IInputReadable<Vector2>.Get() => Input;
-        Vector3 IInputReadable<Vector3>. Get() => Input;
-        Vector4 IInputReadable<Vector4>. Get() => Input;
+        [field: SerializeField]
+        public UnityEvent InputReceived { get; private set; }
 
-        public bool TrySet(float input)
+        [field: SerializeField]
+        public UnityEvent InputExpired { get; private set; }
+
+        public float GetInput() => Input.x;
+        Vector2 IInputReadable<Vector2>.GetInput() => Input;
+        Vector3 IInputReadable<Vector3>.GetInput() => Input;
+        Vector4 IInputReadable<Vector4>.GetInput() => Input;
+
+        public bool TrySetInput(float input)
         {
             Input = new Vector4(input, Input.y, Input.z, Input.w);
             return true;
         }
 
-        public bool TrySet(Vector2 input)
+        public bool TrySetInput(Vector2 input)
         {
             Input = input;
             return true;
         }
 
-        public bool TrySet(Vector3 input)
+        public bool TrySetInput(Vector3 input)
         {
             Input = input;
             return true;
         }
 
-        public bool TrySet(Vector4 input)
+        public bool TrySetInput(Vector4 input)
         {
             Input = input;
             return true;

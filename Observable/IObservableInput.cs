@@ -1,10 +1,10 @@
-using System;
+using UnityEngine.Events;
 
 namespace InputBox.Observable
 {
     public interface IObservableInput
     {
-        event EventHandler InputRecieved;
-        event EventHandler InputExpired;
+        UnityEvent InputReceived { get; }
+        UnityEvent InputExpired { get; }
     }
 }
