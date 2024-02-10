@@ -8,6 +8,7 @@ namespace InputBox.Readable
         [SerializeField]
         [Min(0.0f)]
         private float _threshold = Mathf.Epsilon;
+        private float SquaredThreshold => _threshold * _threshold;
 
         [SerializeField]
         private Vector4 _defaultInput = Vector3.right;
@@ -30,9 +31,9 @@ namespace InputBox.Readable
             _inputReadableVector4 = _inputReadableObject as IInputReadable<Vector4>;
         }
 
-        public bool AboveThreshold(Vector4 input) => input.sqrMagnitude > _threshold * _threshold;
-        public bool AboveThreshold(Vector3 input) => input.sqrMagnitude > _threshold * _threshold;
-        public bool AboveThreshold(Vector2 input) => input.sqrMagnitude > _threshold * _threshold;
+        public bool AboveThreshold(Vector4 input) => input.sqrMagnitude > SquaredThreshold;
+        public bool AboveThreshold(Vector3 input) => input.sqrMagnitude > SquaredThreshold;
+        public bool AboveThreshold(Vector2 input) => input.sqrMagnitude > SquaredThreshold;
         public bool AboveThreshold(float input) => input > _threshold;
 
         public float GetInput()
